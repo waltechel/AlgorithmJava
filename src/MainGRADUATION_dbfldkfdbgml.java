@@ -60,15 +60,15 @@ public class MainGRADUATION_dbfldkfdbgml {
 			}
 
 			dp = new int[M][1 << 12];
-			for(int i = 0 ; i < M ; i++) {
-				for(int j = 0 ; j < (1 << 12) ; j++) {
+			for (int i = 0; i < M; i++) {
+				for (int j = 0; j < (1 << 12); j++) {
 					dp[i][j] = MAX;
 				}
 			}
 			int answer = dfs2(0, 0);
-			if(answer == MAX) {
+			if (answer == MAX) {
 				bw.write("IMPOSSIBLE\n");
-			}else {
+			} else {
 				bw.write("" + answer + "\n");
 			}
 		}
@@ -77,59 +77,130 @@ public class MainGRADUATION_dbfldkfdbgml {
 		bw.close();
 
 	}
-	
+
 	/**
 	 * 현재 i번째 학기에서 수강한 class들의 상태가 visited일 때
 	 * k 개 이상의 과목을 모두 들으려면 몇 학기나 있어야 하는가?
 	 * 불가능하다면 Integer.MAX_VALUE를 반환한다.
+	 * 
 	 * @param index
 	 * @param visited
 	 * @return
 	 */
 	private static int dfs2(int index, int visited) {
-		
-		if(bitCount(visited) >= K) {
+
+		if (bitCount(visited) >= K) {
 			return 0;
 		}
-		if(index == M) {
+		if (index == M) {
 			return MAX;
 		}
 		int ret = dp[index][visited];
-		if(ret != MAX) {
+		if (ret != MAX) {
 			return ret;
 		}
-		
+
 		int canTake = (cemester[index] & ~visited);
-		for(int i = 0 ; i < N ; i++) {
-			if(
-				((canTake & (1 << i)) > 0) && 
-				((pre[i] & visited) != pre[i])
-			){
+		for (int i = 0; i < N; i++) {
+			if (((canTake & (1 << i)) > 0) && ((pre[i] & visited) != pre[i])) {
 				canTake &= (~(1 << i));
 			}
 		}
-		for(int course = canTake; course > 0 ; course = ((course - 1) & canTake)) {
-			if(bitCount(course) > L) {
+		for (int course = canTake; course > 0; course = ((course - 1) & canTake)) {
+			if (bitCount(course) > L) {
 				continue;
 			}
 			ret = Math.min(ret, dfs2(index + 1, visited | course) + 1);
 		}
-		
+
 		ret = Math.min(ret, dfs2(index + 1, visited));
 		return dp[index][visited] = ret;
 	}
 
-
-
 	private static int bitCount(int visited) {
 		int ret = 0;
-		for(int i = 0 ; i < 12 ; i++) {
-			if((visited & (1 << i)) > 0) {
+		for (int i = 0; i < 12; i++) {
+			if ((visited & (1 << i)) > 0) {
 				ret++;
 			}
 		}
 		return ret;
 	}
 
+	
+	
+	private static int answer;
+	private static boolean isFinished;
+	/**
+	 * 이 소스는 돌지 않았습니다.
+	 * @param index index 번째 학기
+	 * @param flag 수강할까 말까
+	 * @param visited 여태까지 들은 과목의 상태
+	 * @param cntOfCemester 학기의 수
+	 */
+	private static void dfs(int index, boolean flag, int visited, int cntOfCemester) {
+
+		if (isFinished && answer < cntOfCemester) {
+			return;
+		}
+		if (index == M) {
+			return;
+		}
+
+		// 최대 L개 과목까지 학습할 수 있다.
+		if (flag) {
+			int maxCoursesOfthisCemester = cemester[index];
+			for (int courses = 0; courses <= maxCoursesOfthisCemester; courses++) {
+				if (courses != (courses & maxCoursesOfthisCemester)) {
+					continue;
+				}
+
+				int count = 0;
+				for (int i = 0; i < N; i++) {
+					if ((courses & (1 << i)) == (1 << i)) {
+						count++;
+					}
+				}
+				int next = visited;
+				for (int i = 0; count <= L && i < N; i++) {
+					if ((courses & (1 << i)) != 0) {
+						if (pre[i] == 0 || (pre[i] == (pre[i] & visited))) {
+							next |= (1 << i);
+						}
+					}
+				}
+
+				for (int i = 0, cnt = 0; i < N; i++) {
+					if ((next & (1 << i)) == (1 << i)) {
+						cnt++;
+					}
+					if (cnt >= K) {
+						isFinished = true;
+						answer = Math.min(answer, cntOfCemester);
+					}
+				}
+
+				dfs(index + 1, true, next, cntOfCemester + 1);
+				dfs(index + 1, false, next, cntOfCemester);
+
+			}
+
+		}
+
+		for (int i = 0, cnt = 0; i < N; i++) {
+			if ((visited & (1 << i)) == (1 << i)) {
+				cnt++;
+			}
+			if (cnt >= K) {
+				isFinished = true;
+				answer = Math.min(answer, cntOfCemester);
+				return;
+			}
+		}
+
+		dfs(index + 1, true, visited, cntOfCemester + 1);
+		dfs(index + 1, false, visited, cntOfCemester);
+
+	}
 
 }
