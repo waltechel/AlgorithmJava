@@ -106,12 +106,17 @@ public class MainGRADUATION_dbfldkfdbgml {
 				canTake &= (~(1 << i));
 			}
 		}
-		for (int course = canTake; course > 0; course = ((course - 1) & canTake)) {
-			if (bitCount(course) > L) {
-				continue;
+		if(bitCount(canTake) <= L) {
+			ret = Math.min(ret, dfs2(index + 1, visited | canTake) + 1);
+		}else {
+			for (int course = canTake; course > 0; course = ((course - 1) & canTake)) {
+				if (bitCount(course) > L) {
+					continue;
+				}
+				ret = Math.min(ret, dfs2(index + 1, visited | course) + 1);
 			}
-			ret = Math.min(ret, dfs2(index + 1, visited | course) + 1);
 		}
+		
 
 		ret = Math.min(ret, dfs2(index + 1, visited));
 		return dp[index][visited] = ret;
