@@ -27,8 +27,8 @@ public class MainCHSRITMAS_SongTaeheon {
 
             makeAccBox();
 
-            int result1 = solveProblem1();
-            int result2 = solveProblem2();
+            long result1 = solveProblem1();
+            long result2 = solveProblem2();
             System.out.println(result1 + " " + result2);
         }
     }
@@ -41,12 +41,12 @@ public class MainCHSRITMAS_SongTaeheon {
         }
     }
 
-    private static int solveProblem1() {
+    private static long solveProblem1() {
 
-        int result = 0;
+        long result = 0;
 
         //나머지 별 개수를 구한다.
-        int[] count = new int[childCount];
+        long[] count = new long[childCount];
         for (int i = 0; i < boxCount + 1; i++) { // i = 0인 경우는
             count[accBoxRemainder[i]]++;
         }
@@ -64,11 +64,11 @@ public class MainCHSRITMAS_SongTaeheon {
     }
 
 
-    private static int solveProblem2() {
+    private static long solveProblem2() {
 
         int[] subsetCountUntil = new int[boxCount + 1];
-        int[] prevRemainderPosition = new int[childCount + 1];
-        boolean[] prevRemainderExist = new boolean[childCount + 1];
+        int[] prevRemainderPosition = new int[childCount];
+        boolean[] prevRemainderExist = new boolean[childCount];
 
         for (int until = 0; until < boxCount + 1; until++) {
 
