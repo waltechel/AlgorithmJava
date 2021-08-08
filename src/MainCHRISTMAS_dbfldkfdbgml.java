@@ -49,24 +49,24 @@ public class MainCHRISTMAS_dbfldkfdbgml {
 
 			int answer2 = 0;
 			// D[] 의 부분합 배열 A와 k가 주어질 때 겹치지 않게 몇 번이나 살 수 있는지 확인한다.
-			int [] B = new int[A.length];
-			// prev[s] = A가 s였던 마지막 위치
-			int [] prev = new int[K];
+			int [] dp = new int[A.length];
+			// prev[i] = A값이 i였던 마지막 위치
+			int [] lastIndexOfAi = new int[K];
 			for(int i = 0 ; i < K ; i++) {
-				prev[i] = -1;
+				lastIndexOfAi[i] = -1;
 			}
 			for(int i = 0 ; i < A.length ; i++) {
-				// i번째 상자를 아예 고려하지 않는 경우
 				if(i > 0) {
-					B[i] = B[i - 1];
+					dp[i] = dp[i - 1];
 				}
-				int location = prev[A[i]];
+				int location = lastIndexOfAi[A[i]];
 				if(location != -1) {
-					B[i] = Math.max(B[i], B[location] + 1);
+					// 구간 하나 더하는 것이므로 + 1
+					dp[i] = Math.max(dp[i], dp[location] + 1);
 				}
-				prev[A[i]] = i;
+				lastIndexOfAi[A[i]] = i;
 			}
-			answer2 = B[N];
+			answer2 = dp[N];
 			bw.write(answer1 + " " + answer2 + "\n");
 		}
 
