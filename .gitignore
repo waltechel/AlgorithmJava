@@ -26,3 +26,9 @@ hs_err_pid*
 /bin
 Main.java
 Solution.java
+
+# intellij idea dir
+.idea/
+
+# Intellij Idea Module
+*.iml
