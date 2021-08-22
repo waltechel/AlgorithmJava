@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
-public class Main {
+public class MainPALINDROMIZE_dbfldkfdbgml {
 	
 	/*
 	 * 전체문자열 S와 패턴문자열 P가 주어질 때
