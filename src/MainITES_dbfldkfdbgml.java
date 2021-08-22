@@ -5,40 +5,42 @@ import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
 public class MainITES_dbfldkfdbgml {
-	
+
 	private static final int SIZE = 5000000;
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st;
+
 		int TEST = Integer.parseInt(br.readLine());
 		for (int test = 0; test < TEST; test++) {
 			int N, K;
 			st = new StringTokenizer(br.readLine());
 			K = Integer.parseInt(st.nextToken());
 			N = Integer.parseInt(st.nextToken());
-			
-			long [] queue = new long[SIZE];
-			int front = -1;
+
+			long[] queue = new long[SIZE];
+			int head = -1;
 			int tail = -1;
+			long M = 0;
+
 			int answer = 0;
-			for(long i = 1, A = 1983, sum = 0;  i < N ; i++) {
-				queue[++front % SIZE] = A % 10000 + 1;
-				front %= SIZE;
-				sum += (A % 10000 + 1);
-				if(sum >= K) {
-					if(sum == K) {
+			long[] A = new long[2];
+			A[0] = 1983;
+			for (int i = 1; i <= N; i++) {
+				long temp = ((A[(i - 1) % 2] % 10000) + 1);
+				M += temp;
+				queue[(++head) % SIZE] = temp;
+				while (M >= K) {
+					if (M == K) {
 						answer++;
 					}
-					sum -= queue[++tail % SIZE];
-					tail %= SIZE;
-					if(sum == K) {
-						answer++;
-					}
+					M -= queue[(++tail) % SIZE];
 				}
-				A = (A * 214013 + 2531011) % (1l << 32);
+				A[i % 2] = (A[(i - 1) % 2] * 214013l + 2531011) % (1l << 32);
 			}
+
 			bw.write(answer + "\n");
 		}
 
@@ -47,5 +49,4 @@ public class MainITES_dbfldkfdbgml {
 		br.close();
 	}
 
-	
 }

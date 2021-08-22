@@ -117,7 +117,6 @@ public class MainGRADUATION_dbfldkfdbgml {
 			}
 		}
 		
-
 		ret = Math.min(ret, dfs2(index + 1, visited));
 		return dp[index][visited] = ret;
 	}
