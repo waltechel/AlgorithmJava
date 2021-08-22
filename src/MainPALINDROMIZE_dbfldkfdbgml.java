@@ -21,17 +21,14 @@ public class MainPALINDROMIZE_dbfldkfdbgml {
 			String S = br.readLine();
 			String P = new StringBuilder(S).reverse().toString();
 			int [] f = new int[P.length()];
-			for(int i = 1, j = 0, cnt = 0; i < P.length();) {
+			// cnt와 j가 사실 같은 수이므로 넣을 필요가 없다.
+			for(int i = 1, j = 0; i < P.length();) {
 				while(i < P.length() && j < P.length() && P.charAt(i) == P.charAt(j)) {
-					f[i] = ++cnt;
-					i++;
-					j++;
+					f[i++] = ++j;
 				}
 				if(j == 0) {// 첫 글자에서 틀렸으면 S를 바로 다음으로 보낸다.
 					i++;
-					cnt = 0;
 				}else { // 첫 글자가 아니면 f[j - 1]로 보낸다.
-					cnt = f[j - 1];
 					j = f[j - 1];	
 				}
 			}
@@ -42,7 +39,9 @@ public class MainPALINDROMIZE_dbfldkfdbgml {
 					i++;
 					j++;
 					// 어찌되었든 끝까지 비교한 것이다. 
-					if(j == P.length() || i == S.length()) {
+//					if(j == P.length() || i == S.length()) {
+					// j를 비교할 필요가 사실 없다, 팰린드롬이므로 S의 끝까지만 가면 된다.
+					if(i == S.length()) {
 						answer -= j;
 					}
 				}
