@@ -9,6 +9,9 @@ public class MainPALINDROMIZE_dbfldkfdbgml {
 	/*
 	 * 전체문자열 S와 패턴문자열 P가 주어질 때
 	 * S의 부분문자열 중에서 패턴문자열 P와 같은 것을 구하는 문제이다.
+	 * 
+	 * 0부터 S - 1까지의 시작 위치를 전부 시도하면서, P가 S의 남은 부분들과
+	 * 전부 일치하는 위치를 찾는데, 첫 번째 찾은 위치가 가장 많이 겹치는 곳이 되겠다.
 	 */
 
 	public static void main(String[] args) throws Exception {
