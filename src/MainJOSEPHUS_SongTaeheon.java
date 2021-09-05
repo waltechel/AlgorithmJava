@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class MainJESOPHUS_SongTaeheon {
+public class MainJOSEPHUS_SongTaeheon {
 
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static int N, K;

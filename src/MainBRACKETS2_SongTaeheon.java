@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class MainBRAKETS2_SongTaeheon {
+public class MainBRACKETS2_SongTaeheon {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static String input;
 
