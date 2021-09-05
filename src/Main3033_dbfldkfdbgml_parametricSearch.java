@@ -51,7 +51,7 @@ public class Main3033_dbfldkfdbgml_parametricSearch {
 		}
 		
 		for(int i = 0 ; i < line.length() ; i++) {
-			hash *= 31;
+			hash *= 31; 
 			hash += (line.charAt(i) - 'a' + 1);
 			hash %= MOD;
 			if(i >= N) {
