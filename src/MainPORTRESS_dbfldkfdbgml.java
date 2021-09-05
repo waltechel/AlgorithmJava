@@ -13,7 +13,7 @@ public class MainPORTRESS_dbfldkfdbgml {
 	 * 그냥 lca를 활용해서 모든 정점에서 모든 정점까지의 거리 중 최댓값을 구하기로 한다(N <= 100)
 	 * 3. lca를 이용한 트리 위에서의 정점의 거리
 	 * : dist(A, B) = dist(A, LCA) + dist(B, LCA)
-	 * 4. 오답이 나오는 이유를 모르겠어요. 
+	 * 4. 오답이 나오는 이유를 모르겠어요. (찾았어요)
 	 */
 
 	private static ArrayList<int[]> list;
@@ -51,7 +51,7 @@ public class MainPORTRESS_dbfldkfdbgml {
 					if(i == j) {
 						continue;
 					}
-					if (isChildOfBad(list.get(i), list.get(j)) && isChildOfBad(list.get(j), list.get(parentIndex))) {
+					if (isChildOfGood(list.get(i), list.get(j)) && isChildOfGood(list.get(j), list.get(parentIndex))) {
 						parentIndex = j;
 					}
 				}
@@ -129,6 +129,10 @@ public class MainPORTRESS_dbfldkfdbgml {
 			return true;
 		}
 		return false;
+	}
+	
+	private static boolean isChildOfGood(int[] p1, int[] p2) {
+		return p1[3] < p2[3] && ((p1[1] - p2[1]) * (p1[1] - p2[1])) + ((p1[2] - p2[2]) * (p1[2] - p2[2])) < (p1[3] - p2[3]) * (p1[3] - p2[3]);
 	}
 
 }
