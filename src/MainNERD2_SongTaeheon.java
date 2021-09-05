@@ -38,7 +38,7 @@ public class MainNERD2_SongTaeheon {
             int ramen = Integer.parseInt(inputSt.nextToken());
 
 
-            Entry<Integer, Integer> ceilingEntry = map.ceilingEntry(problem); // key가 problem[i]보다 큰 것 중에 가장 작은 entry
+            Entry<Integer, Integer> ceilingEntry = map.higherEntry(problem); // key가 problem[i]보다 큰 것 중에 가장 작은 entry
 
             // 1. problem을 나보다 많이 푼 사람이 없음. 들어갈 수 있음.
             // or
@@ -58,17 +58,32 @@ public class MainNERD2_SongTaeheon {
     }
 
     private static void removeDominatedParticipations(TreeMap<Integer, Integer> map, int key, int value) {
-        SortedMap<Integer, Integer> lowerProblemMap = map.headMap(key);
-        Object[] problems = lowerProblemMap.keySet().toArray();
-        for (int j = problems.length - 1; j >= 0; j--) { // 들어가면서 나와야 할 것들을 뺀다.
-            Integer problem = (Integer) problems[j];
-            Integer ramen = map.get(problem);
-            if (ramen < value) {
-                map.remove(problem);
+//        SortedMap<Integer, Integer> lowerProblemMap = map.headMap(key);
+//        Object[] problems = lowerProblemMap.keySet().toArray();
+//        for (int j = problems.length - 1; j >= 0; j--) { // 들어가면서 나와야 할 것들을 뺀다.
+//            Integer problem = (Integer) problems[j];
+//            Integer ramen = map.get(problem);
+//            if (ramen < value) {
+//                map.remove(problem);
+//            } else {
+//                break;
+//            }
+//        }
+        while (true) {
+            int lower;
+            if (map.lowerKey(key) == null) {
+                return;
+            } else {
+                lower = map.lowerKey(key);
+            }
+
+            if (value > map.get(lower)) {
+                map.remove(lower);
             } else {
                 break;
             }
         }
+
     }
 
 
