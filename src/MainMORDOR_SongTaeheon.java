@@ -34,6 +34,8 @@ public class MainMORDOR_SongTaeheon {
     private static void solve() {
         initSegmentTree();
 
+        printArr(minRange);
+
         for (int i = 0; i < Q; i++) {
             int start = startPos[i];
             int end = endPos[i];
@@ -43,6 +45,13 @@ public class MainMORDOR_SongTaeheon {
 
             System.out.println(max-min);
         }
+    }
+
+    private static void printArr(int[] minRange) {
+        for (int i : minRange) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
     }
 
     private static int findMinValueBetween(int nodeNum, int start, int end, int nodeRangeStart, int nodeRangeEnd) {
@@ -87,7 +96,7 @@ public class MainMORDOR_SongTaeheon {
         initMinSegmentTree();
         initMaxSegmentTree();
     }
-    
+
 
     private static void initMinSegmentTree() {
 
@@ -114,7 +123,7 @@ public class MainMORDOR_SongTaeheon {
     }
 
     private static void initMaxSegmentTree() {
-        maxRange = new int[N + 1];
+        maxRange = new int[N * 4];
         Arrays.fill(maxRange, MIN_VALUE);
 
         initMaxRange(1,0, N-1);
