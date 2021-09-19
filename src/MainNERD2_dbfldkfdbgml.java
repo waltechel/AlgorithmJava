@@ -15,6 +15,7 @@ public class MainNERD2_dbfldkfdbgml {
 		int T = Integer.parseInt(br.readLine());
 		for (int test_case = 0; test_case < T; test_case++) {
 			int C = Integer.parseInt(br.readLine());
+			
 			// 레드블랙트리를 구현하기 위한 트리맵
 			TreeMap<Integer, Integer> map = new TreeMap<>();
 			long answer = 0;
