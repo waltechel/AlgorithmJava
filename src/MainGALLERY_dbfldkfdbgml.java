@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
  * @author leedongjun
  *
  */
-public class MainGALLERY_dbfldkfdbgml_bad {
+public class MainGALLERY_dbfldkfdbgml {
 
 	private static List<Integer>[] graph;
 	private static int answer;
