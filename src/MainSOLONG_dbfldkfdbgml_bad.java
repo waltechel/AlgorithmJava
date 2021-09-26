@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
  * @author leedongjun
  *
  */
-public class MainSOLONG_dbfldkfdbgml {
+public class MainSOLONG_dbfldkfdbgml_bad {
 
 	private static String[] list;
 	private static int answer;
