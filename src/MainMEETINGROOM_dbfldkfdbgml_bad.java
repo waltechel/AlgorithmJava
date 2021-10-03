@@ -58,22 +58,6 @@ public class MainMEETINGROOM_dbfldkfdbgml_bad {
 				// 2를 누르면 바로 옆의 것은 반드시 해야 한다.(2 -> 1)
 				if (visited[i] == 0) {
 					dfs(-1, i, 2);
-					if (contradiction) {
-						clear(i);
-						dfs(-1, i, 1);
-					}
-				}
-			}
-			if (contradiction) {
-				visited = new int[2 * N];
-				contradiction = false;
-				for (int i = 0; i < 2 * N; i++) {
-					// 1은 한다. 2는 안한다.
-					// 1을 누르면 바로 옆의 것은 반드시 하면 안된다(1 -> 2)
-					// 2를 누르면 바로 옆의 것은 반드시 해야 한다.(2 -> 1)
-					if (visited[i] == 0) {
-						dfs(-1, i, 1);
-					}
 				}
 			}
 
@@ -94,15 +78,6 @@ public class MainMEETINGROOM_dbfldkfdbgml_bad {
 
 	}
 
-	private static void clear(int now) {
-		visited[now] = 0;
-		for (int i = 0; i < graph[now].size(); i++) {
-			int next = graph[now].get(i);
-			if (visited[next] != 0)
-				clear(next);
-		}
-	}
-
 	private static void dfs(int prev, int now, int flag) {
 		visited[now] = flag;
 		if (contradiction) {
@@ -110,13 +85,23 @@ public class MainMEETINGROOM_dbfldkfdbgml_bad {
 		}
 		for (int i = 0; i < graph[now].size(); i++) {
 			int next = graph[now].get(i);
-			// 지금 이 회의를 반드시 해야 한다면, 시간이 겹치거나 그 팀의 다른 회의는 안해야 한다.
-			if (flag == 1 && visited[next] == 0) {
-				dfs(now, next, 3 - flag);
-			}
 			// 지금 이 회의도 하고 시간 겹치는 다른 회의도 할 수는 없다
 			if (flag == 1 && visited[next] == flag) {
 				contradiction = true;
+				return;
+			}
+			// 지금 이 회의를 안하는데, 다른 회의도 안할 수는 없다.
+			if (flag == 2 && visited[next] == 2 && now % 2 == 1 && next == now - 1) {
+				contradiction = true;
+				return;
+			}
+			if (flag == 2 && visited[next] == 2 && now % 2 == 0 && next == now + 1) {
+				contradiction = true;
+				return;
+			}
+			// 지금 이 회의를 반드시 해야 한다면, 시간이 겹치거나 그 팀의 다른 회의는 안해야 한다.
+			if (flag == 1 && visited[next] == 0) {
+				dfs(now, next, 3 - flag);
 			}
 			// 지금 이 회의를 안해야 한다면, 그 팀의 다른 회의는 반드시 해야 한다.
 			if (flag == 2 && visited[next] == 0 && now % 2 == 1 && next == now - 1) {
@@ -125,13 +110,7 @@ public class MainMEETINGROOM_dbfldkfdbgml_bad {
 			if (flag == 2 && visited[next] == 0 && now % 2 == 0 && next == now + 1) {
 				dfs(now, next, 3 - flag);
 			}
-			// 지금 이 회의를 안하는데, 다른 회의도 안할 수는 없다.
-			if (flag == 2 && visited[next] == 2 && now % 2 == 1 && next == now - 1) {
-				contradiction = true;
-			}
-			if (flag == 2 && visited[next] == 2 && now % 2 == 0 && next == now + 1) {
-				contradiction = true;
-			}
+
 		}
 	}
 
