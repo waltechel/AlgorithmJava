@@ -2,8 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class MainROUTING_SongTaeheon {
@@ -26,39 +24,33 @@ public class MainROUTING_SongTaeheon {
     }
 
     private static double solve() {
-        Queue<Integer> q = new LinkedList<>();
 
-        q.add(0);
-        visited[0] = true;
         cost[0] = 1;
 
-        while(!q.isEmpty()) {
-            int now = q.poll();
+        while(true) {
 
-            if (now == N - 1) return cost[now];
+            double closest = INF;
+            int here = 0;
 
-            int minComputer = -1;
-            double minCost = INF;
-
-            for (int next = 0; next < N; next++) {
-                if (graph[now][next] == 0) continue; //not connected
-                if (visited[next]) continue;
-
-                double nextCost = cost[now] * graph[now][next];
-                cost[next] = Math.min(nextCost, cost[next]);
-
-                if (minCost > cost[next]) {
-                    minCost = cost[next];
-                    minComputer = next;
+            for (int i = 0; i < N; i++) {
+                if (cost[i] < closest && !visited[i]) {
+                    closest = cost[i];
+                    here = i;
                 }
             }
 
-            if (minComputer != -1) {
-                q.add(minComputer);
-                visited[minComputer] = true;
+            if (closest == INF) break;
+
+            visited[here] = true;
+            for (int next = 0; next < N; next++) {
+                if (graph[here][next] == 0) continue; //not connected
+                if (visited[next]) continue;
+
+                double nextCost = cost[here] * graph[here][next];
+                cost[next] = Math.min(nextCost, cost[next]);
             }
         }
-        return -1.0;
+        return cost[N - 1];
     }
 
     private static int readTestCount() throws IOException {
