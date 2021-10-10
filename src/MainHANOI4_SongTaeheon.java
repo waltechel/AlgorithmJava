@@ -42,7 +42,6 @@ public class MainHANOI4_SongTaeheon {
         while(!q.isEmpty()) {
             int here = q.poll();
 
-//            int[] top = makeTop(here);
             int[] top = {-1, -1, -1, -1};
             for (int i = N-1; i >=0; i--) {
                 top[get(here, i)] = i;
@@ -52,12 +51,7 @@ public class MainHANOI4_SongTaeheon {
             for (int i = 0; i < COLUMN_COUNT; i++) {
                 if (top[i] == -1) continue; // top 에 아무것도 없음.
                 for (int j = 0; j < COLUMN_COUNT; j++) {
-//                    if (i == j) continue;
-//                    if (top[j] != -1 && top[i] > top[j]) continue; // j에 작은게 있으면 ㄴㄴ
-
                     if (i != j && (top[j] == -1 || top[j] > top[i])) {
-//                    int there = makeNextStatus(here, top[i], j); // top[i]를 j 위치로 옮긴다.
-
                         int there = set(here, top[i], j);
                         if (count[there] == 0) {
                             count[there] = incr(count[here]);
@@ -73,13 +67,6 @@ public class MainHANOI4_SongTaeheon {
         return -1;
     }
 
-    private static void printTop(int[] top) {
-        for (int i : top) {
-            System.out.print(i + " ");
-        }
-        System.out.println();
-    }
-
     private static int incr(int count) {
         if (count == 0) return 0;
         if (count < 0) return count - 1;
@@ -90,17 +77,6 @@ public class MainHANOI4_SongTaeheon {
         return Integer.compare(value, 0);
     }
 
-    private static int[] makeTop(int now) {
-        int[] top = {-1, -1, -1, -1};
-
-        for (int i = 0; i < N; i++) {
-            int pos = (now >> (i * 2)) & 3; // i의 column 위치
-            if (top[pos] != -1) continue;
-            top[pos] = i;
-        }
-        return top;
-    }
-
     static int get(int state, int index) {
         return (state >> (index * 2)) & 3;
     }
@@ -109,16 +85,10 @@ public class MainHANOI4_SongTaeheon {
         return (state & ~(3 << (index * 2))) | (value << (index * 2));
     }
 
-    private static int makeNextStatus(int now, int targetDisk, int targetColumn) {
-        int res = now & ~(3 << (targetDisk * 2)); // from에서 뺀다.
-        res = res | (targetColumn << (targetDisk * 2)); // to에 더한다.
-        return res;
-    }
-
     private static int makeTargetStatus() {
         int status = 0;
         for (int i = 0; i < N; i++) {
-            status = status | (input[i] << (i * 2));
+            status = set(status, i, input[i]);
         }
         return status;
     }
