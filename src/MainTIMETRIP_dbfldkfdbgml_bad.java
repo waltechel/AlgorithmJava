@@ -2,10 +2,12 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class MainTIMETRIP_dbfldkfdbgml_bad {
+
+	private static final int MAX = 1000000;
+	private static final int MIN = -1000000;
 
 	public static void main(String[] args) throws Exception {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -20,60 +22,55 @@ public class MainTIMETRIP_dbfldkfdbgml_bad {
 			N = Integer.parseInt(st.nextToken());
 			M = Integer.parseInt(st.nextToken());
 
-			ArrayList<int[]> graph = new ArrayList<>();
+			int[][] graph1 = new int[N][N];
+			int[][] graph2 = new int[N][N];
+			boolean[][] visited = new boolean[N][N];
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					graph1[i][j] = MAX;
+					graph2[i][j] = MIN;
+				}
+			}
 			for (int i = 0; i < M; i++) {
 				st = new StringTokenizer(br.readLine());
 				int from = Integer.parseInt(st.nextToken());
 				int to = Integer.parseInt(st.nextToken());
 				int cost = Integer.parseInt(st.nextToken());
-				graph.add(new int[] { from, to, cost });
+				graph1[from][to] = Math.min(graph1[from][to], cost);
+				graph2[from][to] = Math.max(graph2[from][to], cost);
+				visited[from][to] = true;
 			}
 
-			long[] distMin = new long[N];
-			long[] distMax = new long[N];
-			for (int i = 0; i < N; i++) {
-				distMax[i] = Integer.MIN_VALUE;
-				distMin[i] = Integer.MAX_VALUE;
-			}
-			distMax[0] = 0;
-			distMin[0] = 0;
-
-			for (int i = 0; i < N - 1; i++) {
-				for (int[] edge : graph) {
-					int from = edge[0];
-					int to = edge[1];
-					int cost = edge[2];
-					if (distMin[to] > distMin[from] + cost) {
-						distMin[to] = distMin[from] + cost;
-					}
-					if (distMax[to] < distMax[from] + cost) {
-						distMax[to] = distMax[from] + cost;
+			for (int k = 0; k < N; k++) {
+				for (int i = 0; i < N; i++) {
+					for (int j = 0; j < N; j++) {
+						if (visited[i][k] && visited[k][j]) {
+							visited[i][j] = true;
+							if (graph1[i][j] > graph1[i][k] + graph1[k][j]) {
+								graph1[i][j] = graph1[i][k] + graph1[k][j];
+							}
+							if (graph2[i][j] < graph2[i][k] + graph2[k][j]) {
+								graph2[i][j] = graph2[i][k] + graph2[k][j];
+							}
+						}
 					}
 				}
 			}
 
-			// 조사단이 웜홀을 통해 안드로메다 은하에 갈 방법이 없을 경우에는 UNREACHABLE을 출력합니다.
-			if (distMin[1] == Integer.MAX_VALUE && distMax[1] == Integer.MIN_VALUE) {
+			if (!visited[0][1]) {
 				bw.write("UNREACHABLE\n");
 			} else {
-				for (int[] edge : graph) {
-					int from = edge[0];
-					int to = edge[1];
-					int cost = edge[2];
-					if (distMin[to] > distMin[from] + cost) {
-						distMin[to] = distMin[from] + cost;
-						if(to == 1) {
-							distMin[to] = Integer.MIN_VALUE;
-						}
+				boolean flag1 = false;
+				boolean flag2 = false;
+				for (int i = 0; i < N; i++) {
+					if (graph1[i][i] != MAX && graph1[i][i] < 0 && visited[i][1] && visited[0][i]) {
+						flag1 = true;
 					}
-					if (distMax[to] < distMax[from] + cost) {
-						distMax[to] = distMax[from] + cost;
-						if(to == 1) {
-							distMax[to] = Integer.MAX_VALUE; 
-						}
+					if (graph2[i][i] != MIN && graph2[i][i] > 0 && visited[i][1] && visited[0][i]) {
+						flag2 = true;
 					}
 				}
-				bw.write(distMin[1] == Integer.MIN_VALUE ? "INFINITY" : distMin[1] + " " + (distMax[1] == Integer.MAX_VALUE ? "INFINITY" : distMax[1]) + "\n");
+				bw.write((flag1 ? "INFINITY " : graph1[0][1] + " ") + (flag2 ? "INFINITY" : graph2[0][1]) + "\n");
 			}
 
 		}
