@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class MainLAN_SongTaeheon {
+public class MainLAN_SongTaeheon_kruskal_time_exceeds {
     private static final int INF = Integer.MAX_VALUE;
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static int M, N;
