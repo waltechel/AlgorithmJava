@@ -8,7 +8,10 @@ import java.util.StringTokenizer;
 public class MainTPATH_SongTaeheon_kruskal {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static int M, N;
-    static Edge[] edges;
+    static int[][] edges = new int[4000][3];
+
+    static int[] parent = new int[2000];
+    static int[] rank = new int[2000];
 
     public static void main(String[] args) throws IOException {
 
@@ -18,38 +21,41 @@ public class MainTPATH_SongTaeheon_kruskal {
             input();
             solve();
         }
-
     }
 
     private static void solve() {
         int result = Integer.MAX_VALUE;
 
-        Arrays.sort(edges, Comparator.comparingInt(o -> o.cost));
+        Arrays.sort(edges, 0, M, Comparator.comparingInt(o -> o[2]));
 
         for (int i = 0; i < edges.length; i++) {
-            result = Math.min(result, minUpperBound(i) - edges[i].cost);
+            result = Math.min(result, minUpperBound(i) - edges[i][2]);
         }
 
         System.out.println(result);
     }
 
     private static int minUpperBound(int lowIndex) {
-
-        DisjointSet disjointSet = new DisjointSet(N);
+        initDisjointSet(N);
 
         int startPoint = 0;
         int endPoint = N - 1;
 
         // edges를 돈다. (edges는 cost로 정렬된 상태)
-        for (Edge edge: edges) {
-            if (edges[lowIndex].cost > edge.cost) continue; //lower bound보다 작은 경우
+        for (int[] edge: edges) {
+
+            int fromIndex = edge[0];
+            int toIndex = edge[1];
+            int cost = edge[2];
+
+            if (edges[lowIndex][2] > cost) continue; //lower bound보다 작은 경우
 
             // 이미 같은 그룹인 경우 (연결하면 cycle 발생)
-            if (disjointSet.findParent(edge.fromIndex) == disjointSet.findParent(edge.toIndex)) continue;
+            if (findParent(fromIndex) == findParent(toIndex)) continue;
 
-            disjointSet.merge(edge.fromIndex, edge.toIndex);
+            merge(fromIndex, toIndex);
 
-            if (disjointSet.findParent(startPoint) == disjointSet.findParent(endPoint)) return edge.cost;
+            if (findParent(startPoint) == findParent(endPoint)) return cost;
         }
 
         return Integer.MAX_VALUE;
@@ -66,61 +72,40 @@ public class MainTPATH_SongTaeheon_kruskal {
         N = Integer.parseInt(st.nextToken()); // 철도 수
         M = Integer.parseInt(st.nextToken()); // 연결 수
 
-        edges = new Edge[M];
 
         for (int i = 0; i < M; i++) {
             StringTokenizer st2 = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st2.nextToken());
             int b = Integer.parseInt(st2.nextToken());
             int cost = Integer.parseInt(st2.nextToken());
-            edges[i] = new Edge(a, b, cost);
+            edges[i] = new int[]{a, b, cost};
         }
     }
 
-    static class Edge {
-        int fromIndex;
-        int toIndex;
-        int cost;
-
-        public Edge(int fromIndex, int toIndex, int cost) {
-            this.fromIndex = fromIndex;
-            this.toIndex = toIndex;
-            this.cost = cost;
-        }
+    static public int findParent(int v) {
+        if (v == parent[v]) return v;
+        parent[v] = findParent(parent[v]);
+        return parent[v];
     }
 
-    static class DisjointSet {
-        private int[] parent;
-        private int[] rank;
+    static public void merge(int a, int b) {
+        int rootA = findParent(a);
+        int rootB = findParent(b);
 
-        public DisjointSet(int size) {
-            parent = new int[size];
-            rank = new int[size];
-
-            for (int i = 0 ; i < size; i++) {
-                parent[i] = i;
-                rank[i] = 1;
-            }
+        if (rank[rootA] < rank[rootB]) {
+            int temp = rootA;
+            rootA = rootB;
+            rootB = temp;
         }
 
-        public int findParent(int v) {
-            if (v == parent[v]) return v;
-            parent[v] = findParent(parent[v]);
-            return parent[v];
-        }
+        rank[rootA] += rank[rootB];
+        parent[rootB] = rootA; // findParent할 때, 자식들도 다 바뀜!
+    }
 
-        public void merge(int a, int b) {
-            int rootA = findParent(a);
-            int rootB = findParent(b);
-
-            if (rank[rootA] < rank[rootB]) {
-                int temp = rootA;
-                rootA = rootB;
-                rootB = temp;
-            }
-
-            rank[rootA] += rank[rootB];
-            parent[rootB] = rootA; // findParent할 때, 자식들도 다 바뀜!
+    static void initDisjointSet(int size) {
+        for (int i = 0 ; i < size; i++) {
+            parent[i] = i;
+            rank[i] = 1;
         }
     }
 }
