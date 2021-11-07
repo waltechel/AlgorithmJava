@@ -18,6 +18,12 @@ public class MainMATCHFIX_dbfldkfdbgml_bad {
 	 * 
 	 * 나동빈의 네트워크 플로우를 기본으로 소스 작성함
 	 * https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=ndb796&logNo=221237111220
+	 * 
+	 * - 동률이 나도 안된다
+	 * - 동률이 나도 통과되는 경우가 있다.
+	 * - 0번 선수로 BFS가 먼저 가기 때문에 0번부터 값을 채운다.
+	 * - 0번 기준으로 from(left)와 to(right)를 결정하므로 그 범위 내에서는 최대 용량만 해결이 되면 된다.
+	 * - 플로우를 유지한 채로 해도 답이 나온다.
 	 */
 
 	private static final int START = 12;
@@ -57,6 +63,9 @@ public class MainMATCHFIX_dbfldkfdbgml_bad {
 				graph[from].add(to1);
 				graph[from].add(to2);
 				graph[START].add(from);
+				graph[to1].add(from);
+				graph[to1].add(from);
+				graph[from].add(START);
 				if (to1 == 0) {
 					maximum++;
 				}
@@ -66,10 +75,11 @@ public class MainMATCHFIX_dbfldkfdbgml_bad {
 			}
 			for (int i = 0; i < N; i++) {
 				graph[i].add(END);
+				graph[END].add(i);
 			}
 
 			int answer = wins[0] - 1;
-			for (int ret = 512; ret > 0; ret /= 2) {
+			for (int ret = 1024; ret > 0; ret /= 2) {
 				int[][] flow = new int[201][201];
 				int[] parent = new int[201];
 				for (int i = 0; i < N; i++) {

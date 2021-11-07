@@ -41,20 +41,20 @@ public class MainBISHOPS_dbfldkfdbgml {
 			}
 
 			findDiagonal();
-			//			System.out.println("li is : ");
-			//			for(int i = 0 ; i < N ; i++) {
-			//				for(int j = 0 ; j < N ; j++) {
-			//					System.out.print(leftIndex[i][j] + " ");
-			//				}
-			//				System.out.println();
-			//			}
-			//			System.out.println("ri is : ");
-			//			for(int i = 0 ; i < N ; i++) {
-			//				for(int j = 0 ; j < N ; j++) {
-			//					System.out.print(rightIndex[i][j] + " ");
-			//				}
-			//				System.out.println();
-			//			}
+			System.out.println("li is : ");
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					System.out.print(leftIndex[i][j] + " ");
+				}
+				System.out.println();
+			}
+			System.out.println("ri is : ");
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					System.out.print(rightIndex[i][j] + " ");
+				}
+				System.out.println();
+			}
 
 			setNetwork();
 			int answer = networkFlow(0, leftNum + rightNum + 1);
