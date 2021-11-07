@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
  * - 3으로 나워서 remainCount가 3의 배수가 아닌 경우에는 답이 아예 없는 경우도 있음
  * . 는 흰 칸을 나타냅니다. 입력에 주어지는 게임판에 있는 흰 칸의 수는 50 을 넘지 않습니다.
  * 해보니까 500개 넘는 경우가 많아 보이지 않는다.
+ * - 마지막 줄은 솔직히 볼 게 없다. 이미 이전 줄에서 채우겠습니다.
  */
 public class MainBOARDCOVER_dbfldkfdbgml {
 
