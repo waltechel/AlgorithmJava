@@ -5,6 +5,14 @@ import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+/**
+ * 생각거리
+ * - 미리 제곱값, 그냥 값의 누적합을 알아놓으면 좋다
+ * - 굳이 세 개를 하지 않고 반올림을 하면 정확한 평균을 구할 수 있다.
+ * - 수의 종류(N의 종류)보다 S가 크거나 같으면 무조건 정답은 0이 된다.
+ * @author leedongjun
+ *
+ */
 public class MainQUANTIZATION_dbfldkfdbgml {
 
 	private static int[] A;

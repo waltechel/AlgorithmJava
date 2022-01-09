@@ -5,7 +5,15 @@ import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+/**
+ * 생각거리
+ * 1. 문제의 정답이 int 범위 안에 있다고 해도 다른 값이 int 를 넘을 수 있다.(좋지는 않은 문제)
+ * 2. 값을 먼저 받은 다음에 큰 부분에서 값이 오는 것만 따로 계산해도 되는 문제
+ * @author leedongjun
+ *
+ */
 public class MainTRIPATHCNT_dbfldkfdbgml {
+	
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
