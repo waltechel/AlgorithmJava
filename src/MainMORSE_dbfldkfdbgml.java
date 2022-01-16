@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 public class MainMORSE_dbfldkfdbgml {
 
 	private static final int MAX = 1_000_000_000;
-	private static int[][] C= new int[201][101];
+	private static int[][] C = new int[201][101];
 
 	public static void main(String[] args) throws Exception {
 
@@ -75,18 +75,7 @@ public class MainMORSE_dbfldkfdbgml {
 			}
 			return;
 		}
-		// 경우의 수가 한 가지 뿐일 때
-		if (C[n + m][m] == 1) {// 방법이 없으므로 그냥 출력한다.
-			while (n > 0) {// 단점만이라면
-				System.out.print("-");
-				n--;
-			}
-			while (m > 0) {// 장점만이라면
-				System.out.print("o");
-				m--;
-			}
-			return;
-		}
+
 		// k 개 보다 작다면 장점이 먼저 나오세요
 		if (C[m + n - 1][n - 1] < k) {
 			System.out.print("o");
