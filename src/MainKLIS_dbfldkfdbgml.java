@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.StringTokenizer;
 
 public class MainKLIS_dbfldkfdbgml {
@@ -14,6 +13,7 @@ public class MainKLIS_dbfldkfdbgml {
 	private static int[] A;
 	private static int[] lis;
 	private static long[] count;
+	private static final long MAX = 10_000_000_000l;
 
 	public static final void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -44,6 +44,7 @@ public class MainKLIS_dbfldkfdbgml {
 			for (Integer e : result) {
 				bw.write(e + " ");
 			}
+
 			bw.write("\n");
 		}
 
@@ -57,52 +58,52 @@ public class MainKLIS_dbfldkfdbgml {
 			result.add(A[startIndex]);
 		}
 		ArrayList<int[]> followers = new ArrayList<>();
-		for (int next = startIndex + 1; next <= N; next++) {
-			if (A[startIndex] < A[next] && lis(startIndex) == lis(next) + 1) {
-				followers.add(new int[] { A[next], next });
+		for (int nextIndex = startIndex + 1; nextIndex <= N; nextIndex++) {
+			if (A[startIndex] < A[nextIndex] && lis(startIndex) == lis(nextIndex) + 1) {
+				followers.add(new int[] { A[nextIndex], nextIndex });
 			}
 		}
 		Collections.sort(followers, (o1, o2) -> Integer.compare(o1[0], o2[0]));
 		for (int i = 0; i < followers.size(); i++) {
-			int index = followers.get(i)[1];
-			long cnt = count(index);
+			int nextIndex = followers.get(i)[1];
+			long cnt = count(nextIndex);
 			if (cnt <= skip) {
 				skip -= cnt;
 			} else {
-				reconstruct(index, skip, result);
+				reconstruct(nextIndex, skip, result);
 				break;
 			}
 		}
 
 	}
 
-	private static long count(int start) {
-		if (lis(start) == 1) {
-			return count[start] = 1;
+	private static long count(int startIndex) {
+		if (lis(startIndex) == 1) {
+			return 1;
 		}
-		if (count[start] != -1) {
-			return count[start];
+		if (count[startIndex] != -1) {
+			return count[startIndex];
 		}
 		long ret = 0;
-		for (int next = start + 1; next <= N; next++) {
-			if (A[start] < A[next] && lis(start) == lis(next) + 1) {
-				ret = Math.min(Long.MAX_VALUE, ret + count(next));
+		for (int nextIndex = startIndex + 1; nextIndex <= N; nextIndex++) {
+			if (A[startIndex] < A[nextIndex] && lis(startIndex) == lis(nextIndex) + 1) {
+				ret = Math.min(MAX, ret + count(nextIndex));
 			}
 		}
-		return count[start] = ret;
+		return count[startIndex] = ret;
 	}
 
-	private static int lis(int now) {
-		if (lis[now] != -1) {
-			return lis[now];
+	private static int lis(int start) {
+		if (lis[start] != -1) {
+			return lis[start];
 		}
 		int ret = 1;
-		for (int next = now + 1; next <= N; next++) {
-			if (A[now] < A[next]) {
+		for (int next = start + 1; next <= N; next++) {
+			if (A[start] < A[next]) {
 				ret = Math.max(ret, lis(next) + 1);
 			}
 		}
-		return lis[now] = ret;
+		return lis[start] = ret;
 	}
 
 }
