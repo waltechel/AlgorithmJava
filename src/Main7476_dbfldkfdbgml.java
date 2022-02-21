@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.StringTokenizer;
 
-public class Main7476 {
+public class Main7476_dbfldkfdbgml {
 
 	private static int[][] dp;
 	private static int[] A, B;

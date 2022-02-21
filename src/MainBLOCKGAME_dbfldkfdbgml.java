@@ -81,7 +81,7 @@ public class MainBLOCKGAME_dbfldkfdbgml {
 				for(int k = 0 ; k < BOARDS.length ; k++) {
 					if(isOkay(i, j, k)) {
 						check(i, j, k);
-						ret = (short) Math.max(ret, dfs(phase + 1));
+						ret = (short) Math.max(ret, 1 - dfs(phase + 1));
 						rollback(i, j, k);
 					}
 				}

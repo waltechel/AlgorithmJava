@@ -2,9 +2,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.StringTokenizer;
 
 /**
@@ -24,27 +21,27 @@ public class Main2749_dbfldkfdbgml {
 		StringTokenizer st;
 
 		long n = Long.parseLong(br.readLine());
-		int[][] A = new int[][] { { 0, 1 }, { 1, 1 } };
-		int[][] B = new int[][] { { 0, 1 }, { 1, 1 } };
+		long[][] A = new long[][] { { 0, 1 }, { 1, 1 } };
+		long[][] B = new long[][] { { 0, 1 }, { 1, 1 } };
 		while (n > 0) {
 			if (n % 2 == 1) {
 				A = multiple(A, B);
 				n--;
-			} else {
+			} else if ((n / 2) > 0) {
+				B = multiple(B, B);
 				n /= 2;
-				A = multiple(A, A);
 			}
 		}
 
-		bw.write(A[0][0] + "");
+		bw.write(A[0][0] + "\n");
 
 		bw.flush();
 		bw.close();
 		br.close();
 	}
 
-	private static int[][] multiple(int[][] A, int[][] B) {
-		int[][] ret = new int[2][2];
+	private static long[][] multiple(long[][] A, long[][] B) {
+		long[][] ret = new long[2][2];
 		ret[0][0] = (A[0][0] * B[0][0] + A[0][1] * B[1][0]) % MOD;
 		ret[0][1] = (A[0][0] * B[0][1] + A[0][1] * B[1][1]) % MOD;
 		ret[1][0] = (A[1][0] * B[0][0] + A[1][1] * B[1][0]) % MOD;
