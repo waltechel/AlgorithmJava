@@ -31,7 +31,7 @@ public class MainDARPA_dbfldkfdbgml {
 			for (int i = 0; i < numberOfTowers; i++) {
 				int candi = search(i + 1, numberOfCameras - 1);
 				if (candi != -1) {
-					answer = Math.max(answer, Math.max(A[i + 1] - A[i], candi));
+					answer = Math.max(answer, Math.min(A[i + 1] - A[i], candi));
 				}
 			}
 
@@ -63,10 +63,10 @@ public class MainDARPA_dbfldkfdbgml {
 		}
 
 		int ret = -1;
-		for (int i = fromIndex + 1; i < numberOfTowers; i++) {
-			int candi = search(i, cnt - 1);
+		for (int next = fromIndex + 1; next < numberOfTowers; next++) {
+			int candi = search(next, cnt - 1);
 			if (candi != -1) {
-				ret = Math.max(ret, Math.max(A[i] - A[fromIndex], candi));
+				ret = Math.max(ret, Math.min(A[next] - A[fromIndex], candi));
 			}
 		}
 
