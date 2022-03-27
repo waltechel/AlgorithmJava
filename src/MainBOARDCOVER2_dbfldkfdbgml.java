@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 import javax.sound.sampled.Line;
 
 /**
+ * 
  * 판 돌려서 기초적으로 구현
  * 최대 판을 채우는 방법은 추가해봄
  * 하지만 다음 사례에서 시간 초과가 남
@@ -25,6 +26,10 @@ import javax.sound.sampled.Line;
  * ..........
  * ..........
  * #
+ * 
+ * 1. 판이 겹치게 되면 판을 볼 필요도 없다
+ * 2. if(Empty / blockSize + placed < best) 
+ * 3. max 를 가지고 해결한다.
  * 
  * @author leedongjun
  *
