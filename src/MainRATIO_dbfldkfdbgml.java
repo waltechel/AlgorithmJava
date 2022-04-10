@@ -29,6 +29,7 @@ public class MainRATIO_dbfldkfdbgml {
 			long answer = 0;
 			long left = 0;
 			long right = 4_000_000_000l;
+			// 된다 / 안된다 골라내다가 고정값이 된다.
 			for (int i = 0; i < 100; i++) {
 				answer = (left + right) / 2l;
 				if (isSafe(answer, N, M)) {
