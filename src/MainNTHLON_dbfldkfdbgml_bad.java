@@ -32,8 +32,8 @@ public class MainNTHLON_dbfldkfdbgml_bad {
 				edgeList.add(new int[] { a, a - b });
 			}
 
-			// Queue<int[]> queue = new LinkedList<>();
-			PriorityQueue<int[]> queue = new PriorityQueue<>((o1, o2) -> Integer.compare(o1[1], o2[1]));
+			 Queue<int[]> queue = new LinkedList<>();
+//			PriorityQueue<int[]> queue = new PriorityQueue<>((o1, o2) -> Integer.compare(o1[1], o2[1]));
 			int[] dist = new int[401];
 			for (int i = 0; i <= 400; i++) {
 				dist[i] = Integer.MAX_VALUE;

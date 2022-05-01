@@ -4,7 +4,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 /**
@@ -34,8 +36,8 @@ public class MainNTHLON_dbfldkfdbgml {
 				int cost = a;
 				graph.add(new int[] { to, cost });
 			}
-			PriorityQueue<int[]> queue = new PriorityQueue<>((int[] o1, int[] o2) -> Integer.compare(o1[1], o2[1]));
-
+//			PriorityQueue<int[]> queue = new PriorityQueue<>((int[] o1, int[] o2) -> Integer.compare(o1[1], o2[1]));
+			 Queue<int[]> queue = new LinkedList<>();
 			dist[200] = 0;
 			queue.add(new int[] { 200, dist[200] });
 			while (!queue.isEmpty()) {
