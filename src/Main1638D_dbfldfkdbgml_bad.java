@@ -7,6 +7,11 @@ import java.util.Queue;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
+/**
+ * 위상 정렬로 풀 수 있다.
+ * @author leedongjun
+ *
+ */
 public class Main1638D_dbfldfkdbgml_bad {
 
 	private static int N, M;
