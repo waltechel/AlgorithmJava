@@ -8,6 +8,11 @@ import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
+/**
+ * 반례 : 1 1 2 2 가 되면 2가 나와야 함
+ * @author leedongjun
+ *
+ */
 public class Main1642B_dbdlfkdfbgml {
 
 	public static void main(String[] args) throws Exception {
