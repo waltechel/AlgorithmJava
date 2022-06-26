@@ -7,14 +7,11 @@ import java.util.StringTokenizer;
 
 /**
  * @author leedongjun
- * B번은 못 풀겠음
- * 직사각형이 있는 곳은 모두 1로 채워져야 함
- * 1로 채워지지 않으면 아예 떨어지기라도 해야 함
- * 11111
- * 01010
- * 01000
- * 01000
- * 이거는 안되는데 구현을 못하겠다.
+ *         It is also clear that if there are 3 such cells,
+ *         then there will be two intersecting rectangles.
+ *         Therefore, you just need to check if there is a
+ *         2×2 square in which there are exactly 3 colored
+ *         cells.
  */
 public class Main1647B_dbfldkfdbgml {
 
@@ -24,32 +21,32 @@ public class Main1647B_dbfldkfdbgml {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st;
 
-		String[] A = new String[1001];
-		A[1] = "1";
-		A[2] = "2";
-		A[3] = "21";
-
-		for (int i = 4; i <= 1000; i++) {
-			if (i % 3 == 1) {
-				A[i] = "1" + A[i - 1];
-				continue;
-			} else if (i % 3 == 2) {
-				StringBuilder sb = new StringBuilder();
-				for (int j = 0; j < A[i - 1].length(); j++) {
-					sb.append(A[i - 1].charAt(j) == '1' ? "2" : "1");
-				}
-				A[i] = sb.toString();
-				continue;
-			} else {
-				A[i] = A[i - 1] + "1";
-				continue;
-			}
-		}
-
 		int T = Integer.parseInt(br.readLine());
 		for (int test = 0; test < T; test++) {
-			int N = Integer.parseInt(br.readLine());
-			bw.write(A[N] + "\n");
+			st = new StringTokenizer(br.readLine());
+			int N, M;
+			N = Integer.parseInt(st.nextToken());
+			M = Integer.parseInt(st.nextToken());
+			String[] map = new String[N];
+			for (int i = 0; i < N; i++) {
+				map[i] = br.readLine();
+			}
+
+			boolean flag = false;
+			for (int i = 0; i < N - 1; i++) {
+				for (int j = 0; j < M - 1; j++) {
+					int cnt = 0;
+					cnt += Integer.parseInt(map[i].charAt(j) + "");
+					cnt += Integer.parseInt(map[i].charAt(j + 1) + "");
+					cnt += Integer.parseInt(map[i + 1].charAt(j) + "");
+					cnt += Integer.parseInt(map[i + 1].charAt(j + 1) + "");
+					if (cnt == 3) {
+						flag = true;
+					}
+				}
+			}
+
+			bw.write(flag ? "NO\n" : "YES\n");
 		}
 
 		bw.flush();
