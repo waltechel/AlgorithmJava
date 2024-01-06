@@ -5,6 +5,12 @@ import java.io.OutputStreamWriter;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
+/**
+ * 비둘기집의 원리 비슷하게 짝수의 수와 홀수의 수가 같다면 gcd를 어떻게 구하더라도 2가 나올수밖에 없다.
+ * factorial은 계산해놓고 사용하는 것이 안전하다.
+ * @author leedongjun
+ *
+ */
 public class Main1658B_dbfldkfdbgml {
 
 	private static int visited = 0;
