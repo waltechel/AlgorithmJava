@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.StringTokenizer;
 
-public class Main3163_dbfldkfdbgml_bad {
+public class Main3163_dbfldkfdbgml {
 
 	private static int L, N, K;
 	private static Ant A[];
@@ -73,14 +73,54 @@ public class Main3163_dbfldkfdbgml_bad {
 					r--;
 				}
 			}
-
-			int num = 0;
-			if (B[K].dir == 'L') {
-				num = A[l].a;
-			} else {
-				num = A[r].a;
+			
+			int criFalling = B[K].time;
+			int anotherIndex = -1;
+			for(int i = 1; i <= N ; i++) {
+				if(B[i].time == criFalling && i != K) {
+					anotherIndex = i;
+				}
 			}
-			bw.write(num + "\n");
+			
+			int answer = 0;
+			if(anotherIndex == -1) {
+				if (B[K].dir == 'L') {
+					answer = A[l].a;
+				} else {
+					answer = A[r].a;
+				}	
+			}else {
+				int l2 = 1, r2 = N;
+				for (int i = 1; i < anotherIndex; i++) {
+					if (B[i].dir == 'L') {
+						l2++;
+					} else {
+						r2--;
+					}
+				}
+				
+				int candi1 = 0;
+				if (B[anotherIndex].dir == 'L') {
+					candi1 = A[l2].a;
+				} else {
+					candi1 = A[r2].a;
+				}	
+				int candi2 = 0;
+				if (B[K].dir == 'L') {
+					candi2 = A[l].a;
+				} else {
+					candi2 = A[r].a;
+				}	
+				
+				if(anotherIndex > K) {
+					answer = Math.min(candi1, candi2);
+				}else {
+					answer = Math.max(candi1, candi2);
+				}
+				
+			}
+			
+			bw.write(answer + "\n");
 		}
 
 		bw.flush();
