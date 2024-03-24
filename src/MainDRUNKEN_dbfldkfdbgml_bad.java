@@ -51,7 +51,7 @@ public class MainDRUNKEN_dbfldkfdbgml_bad {
 			}
 		}
 
-		Arrays.sort(between, 1, between.length, (int[] a, int[] b) -> Integer.compare(a[1], b[1]));
+		Arrays.sort(between, 1, between.length, (int[] a, int[] b) -> Integer.compare(from[1], to[1]));
 
 		for (int l = 1; l <= V; l++) {
 			int k = between[l][0];
