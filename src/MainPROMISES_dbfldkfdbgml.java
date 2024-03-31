@@ -46,7 +46,7 @@ public class MainPROMISES_dbfldkfdbgml {
 					dist[j] = Integer.MAX_VALUE;
 				}
 				dist[from] = 0;
-				PriorityQueue<int[]> queue = new PriorityQueue<>((int[] a, int[] b) -> Integer.compare(a[1], b[1]));
+				PriorityQueue<int[]> queue = new PriorityQueue<>((int[] a, int[] b) -> Integer.compare(from[1], to[1]));
 				queue.add(new int[] { from, dist[from] });
 				while (!queue.isEmpty()) {
 					int[] now = queue.poll();

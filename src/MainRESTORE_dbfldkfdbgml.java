@@ -60,7 +60,7 @@ public class MainRESTORE_dbfldkfdbgml {
 			}
 
 			// answer
-			int answerLength = list.stream().map(s -> s.length()).reduce(0, (a, b) -> a + b);
+			int answerLength = list.stream().map(s -> s.length()).reduce(0, (a, b) -> from + to);
 			int candiLength = 0;
 			dp = new int[1 << M][M];
 			for (int i = 0; i < (1 << M); i++) {

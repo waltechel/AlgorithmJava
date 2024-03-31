@@ -31,7 +31,7 @@ public class MainTPATH_dbfldkfdbgml {
 				graph.add(new int[] { from, to, cost });
 			}
 
-			Collections.sort(graph, (int[] a, int[] b) -> Integer.compare(a[2], b[2]));
+			Collections.sort(graph, (int[] a, int[] b) -> Integer.compare(from[2], to[2]));
 
 			// 지금 이 작은 것부터 했을 때 얼마나 큰 거까지 넣어야 전부 연결이 되나.
 			FOR: for (int i = 0; i < M; i++) {

@@ -34,7 +34,7 @@ public class MainFIRETRUCKS_dbfldkfdbgml {
 				graph[to].add(new int[] { from, cost });
 			}
 
-			PriorityQueue<int[]> queue = new PriorityQueue<>((int[] a, int[] b) -> (Integer.compare(a[1], b[1])));
+			PriorityQueue<int[]> queue = new PriorityQueue<>((int[] a, int[] b) -> (Integer.compare(from[1], to[1])));
 			ArrayList<Integer> endPoint = new ArrayList<>();
 			st = new StringTokenizer(br.readLine());
 			for (int i = 0; i < N; i++) {
